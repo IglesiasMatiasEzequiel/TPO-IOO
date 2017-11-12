@@ -1,16 +1,18 @@
 package uade.ioo.principal;
 
 import uade.ioo.modelo.AdministradorPagos;
+import uade.ioo.vista.comportamiento.AdministradorPagosController;
 import uade.ioo.vista.formularios.JFormMenu;
 
 public class main {
 
 	public static void main(String[] args) {
 		
-		 
 		
-		 JFormMenu mainForm = new JFormMenu(new AdministradorPagos());
+		 AdministradorPagos model = new AdministradorPagos();
+		 JFormMenu view = new JFormMenu(new AdministradorPagos());
+		 AdministradorPagosController controller = new AdministradorPagosController(model, view); 
 		 
-		 mainForm.setVisible(true);
+		 view.setVisible(true);
 	}
 }

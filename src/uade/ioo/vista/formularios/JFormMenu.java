@@ -1,7 +1,6 @@
 package uade.ioo.vista.formularios;
 
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -61,38 +60,6 @@ public class JFormMenu extends JFrame{
 		menuItemUtilizarChequesTerceros = new JMenuItem("Utilizar Cheques Terceros");
 		menuItemGenerarChequePropio = new JMenuItem("Generar Cheque Propio");
 		
-		menuItemCobrarServicios.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				openRealizarPagoForm();
-			}
-		}); 
-		
-		menuItemAnalizarCashflow.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				openCobrarServiciosForm();
-			}
-		});
-		
-		menuItemUtilizarChequesTerceros.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				openCobrarServiciosForm();
-			}
-		});
-		
-		menuItemGenerarChequePropio.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				openCobrarServiciosForm();
-			}
-		});
-		
-		
 		menuRealizarPago.add(menuItemUtilizarChequesTerceros);
 		menuRealizarPago.add(menuItemGenerarChequePropio);
 		
@@ -107,20 +74,25 @@ public class JFormMenu extends JFrame{
 		this.setJMenuBar(menuBar);
 	}
 	
-	private void openRealizarPagoForm(){
-		JFormRealizarPago form = new JFormRealizarPago(); 
-		form.setVisible(true);
-	}
+	//Listener Events
 	
-	private void openCobrarServiciosForm(){
-		JFormCobrarServicios form = new JFormCobrarServicios(); 
-		form.setVisible(true);
-	}
+	public void addGenerarChequePropioListener(ActionListener e) {
+		menuItemGenerarChequePropio.addActionListener(e);
+    }
 	
-	private void openAnalizarCashflowForm(){
-		JFormAnalizarCashflow form = new JFormAnalizarCashflow(); 
-		form.setVisible(true);
-	}
+	public void addUtilizarChequesTercerosListener(ActionListener e) {
+		menuItemUtilizarChequesTerceros.addActionListener(e);
+    }
+	
+	public void addCobrarServiciosListener(ActionListener e) {
+		menuItemCobrarServicios.addActionListener(e);
+    }
+	
+	public void addAnalizarCashflowListener(ActionListener e) {
+		menuItemAnalizarCashflow.addActionListener(e);
+    }
+	
+	//region Getters and Setters
 	
 	public AdministradorPagos getModelo() {
 		return modelo;
