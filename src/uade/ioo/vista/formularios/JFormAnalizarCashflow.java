@@ -1,36 +1,47 @@
 package uade.ioo.vista.formularios;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
-public class JFormAnalizarCashflow extends JFrame{
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import uade.ioo.modelo.AdministradorPagos;
+
+public class JFormAnalizarCashflow extends JFormularioBase{
 
 	private static final long serialVersionUID = 1L;
-	
-	private JButton btnUtilizarChequesTerceros;
-	private JButton btnGenerarChequePropio;
 
-	public JFormAnalizarCashflow(){
+	private JTextField lblMontoTotal;
+	
+	public JFormAnalizarCashflow(AdministradorPagos modelo){
+		
+		super(modelo);
 		
 		initializeForm();
-		initializeButtons();
+		initialize();
 	}
 	
 	private void initializeForm(){
-		
-		this.setLocationRelativeTo(null);
-		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-		this.setSize(400, 400);
+	
+		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 	}
 	
-	private void initializeButtons(){
+	private void initialize(){
 		
-		btnUtilizarChequesTerceros = new JButton("Utilizar Cheques de Terceros");
-		btnGenerarChequePropio = new JButton("Generar Cheque Propio");
+		lblMontoTotal = new JTextField();
+		lblMontoTotal.setText("0");
+		lblMontoTotal.setSize(new Dimension(100,100));
 		
-		this.getContentPane().add(btnUtilizarChequesTerceros);
-		this.getContentPane().add(btnGenerarChequePropio);
+		this.getContentPane().add(new JLabel("Monto total: "));
+		this.getContentPane().add(lblMontoTotal);
+	}
+
+	@Override
+	public void actualizar() {
+		super.actualizar();
+		this.lblMontoTotal.setText(Double.toString(this.getModelo().getMontoTotalCheques()));
 	}
 	
 }

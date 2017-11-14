@@ -1,7 +1,7 @@
 package uade.ioo.principal;
 
 import uade.ioo.modelo.AdministradorPagos;
-import uade.ioo.vista.comportamiento.AdministradorPagosController;
+import uade.ioo.vista.controlador.test.mocks.AdministradorPagosController;
 import uade.ioo.vista.formularios.JFormMenu;
 
 public class main {

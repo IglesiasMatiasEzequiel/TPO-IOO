@@ -9,14 +9,16 @@ import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import uade.ioo.modelo.ChequeTerceros.EstadoCheque;
+import uade.ioo.modelo.AdministradorPagos;
+import uade.ioo.modelo.ChequeTercero.EstadoCheque;
+import uade.ioo.vista.comportamiento.IVistaCobrarServicios;
+import uade.ioo.vista.controlador.test.mocks.CobrarServiciosController;
 
-public class JFormCobrarServicios extends JFrame{
+public class JFormCobrarServicios extends JFormularioBase implements IVistaCobrarServicios{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +28,9 @@ public class JFormCobrarServicios extends JFrame{
 	private JButton btnCobrarServicios;
 	private JButton btnCancelar;
 
-	public JFormCobrarServicios(){
+	public JFormCobrarServicios(AdministradorPagos modelo){
+		
+		super(modelo);
 		
 		initializeForm();
 		initializeComponents();
@@ -34,6 +38,7 @@ public class JFormCobrarServicios extends JFrame{
 	
 	private void initializeForm(){
 		
+		this.setTitle("Cobrar Servicios");
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		this.setSize(400, 400);
@@ -58,7 +63,7 @@ public class JFormCobrarServicios extends JFrame{
 		txtNumeroCheque = new JTextField();
 		txtMonto = new JTextField();
 		
-		cbEstado = new JComboBox();
+		cbEstado = new JComboBox<EstadoCheque>();
 		cbEstado.addItem(EstadoCheque.RECIBIDO);
 		cbEstado.addItem(EstadoCheque.ENTREGADO);
 		cbEstado.addItem(EstadoCheque.DEPOSITADO);
@@ -80,6 +85,11 @@ public class JFormCobrarServicios extends JFrame{
 		setSize(lblMonto, 100, 20);
 		setSize(lblEstado, 100, 20);
 		
+		setSize(txtNumeroCheque, 10, 10);
+		setSize(txtMonto, 10, 10);
+		
+		btnCobrarServicios.addActionListener(new CobrarServiciosController(getModelo(), this));
+		
 		this.getContentPane().add(panelNumeroCheque);
 		this.getContentPane().add(panelMonto);
 		this.getContentPane().add(panelEstado);
@@ -87,10 +97,12 @@ public class JFormCobrarServicios extends JFrame{
 		this.getContentPane().add(btnCancelar);
 	}
 	
+	@Override
 	public int getNumeroCheque(){
 		return Integer.parseInt(txtNumeroCheque.getText());
 	}
 	
+	@Override
 	public double getMonto(){
 		return Double.parseDouble(txtMonto.getText());
 	}
@@ -99,6 +111,7 @@ public class JFormCobrarServicios extends JFrame{
 		return new Date();
 	}
 	
+	@Override
 	public EstadoCheque getEstadoCheque(){
 		return (EstadoCheque) cbEstado.getSelectedItem();
 	}
@@ -110,5 +123,10 @@ public class JFormCobrarServicios extends JFrame{
 	public void addCancelarListener(ActionListener e) {
 		btnCancelar.addActionListener(e);
     }
-	
+
+	@Override
+	public void actualizar() {
+	 super.actualizar();
+		
+	}
 }

@@ -1,6 +1,7 @@
 package uade.ioo.vista.formularios;
 
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -10,7 +11,7 @@ import javax.swing.JMenuItem;
 
 import uade.ioo.modelo.AdministradorPagos;
 
-public class JFormMenu extends JFrame{
+public class JFormMenu extends JFormularioBase{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,11 +27,8 @@ public class JFormMenu extends JFrame{
 	private JMenuItem menuItemUtilizarChequesTerceros;
 	private JMenuItem menuItemGenerarChequePropio;
 	
-	protected AdministradorPagos modelo;
-	
 	public JFormMenu(AdministradorPagos modelo){
-		super();
-		this.modelo = modelo;
+		super(modelo);
 		
 		initializeForm();
 		initializeMenu();
@@ -39,9 +37,9 @@ public class JFormMenu extends JFrame{
 	private void initializeForm(){
 		
 		this.setTitle("Administración de Cheques");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(new GridBagLayout());
-		this.setSize(400, 400);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -60,6 +58,42 @@ public class JFormMenu extends JFrame{
 		menuItemUtilizarChequesTerceros = new JMenuItem("Utilizar Cheques Terceros");
 		menuItemGenerarChequePropio = new JMenuItem("Generar Cheque Propio");
 		
+		menuItemCobrarServicios.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFormCobrarServicios view = new JFormCobrarServicios(getModelo());
+				//CobrarServiciosController controller = new CobrarServiciosController(view); 
+				
+				view.setVisible(true);
+			}
+		});
+		
+		menuItemAnalizarCashflow.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFormAnalizarCashflow form = new JFormAnalizarCashflow(getModelo()); 
+				form.setVisible(true);
+			}
+		});
+		
+		menuItemUtilizarChequesTerceros.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFormUtilizarChequesTerceros form = new JFormUtilizarChequesTerceros(getModelo()); 
+				form.setVisible(true);
+			}
+		});
+		
+		menuItemGenerarChequePropio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFormGenerarChequePropio view = new JFormGenerarChequePropio(getModelo());
+				//GenerarChequePropioController controller = new GenerarChequePropioController(view); 
+				
+				view.setVisible(true);
+			}
+		});
+		
 		menuRealizarPago.add(menuItemUtilizarChequesTerceros);
 		menuRealizarPago.add(menuItemGenerarChequePropio);
 		
@@ -73,29 +107,11 @@ public class JFormMenu extends JFrame{
 		
 		this.setJMenuBar(menuBar);
 	}
-	
-	//Listener Events
-	
-	public void addGenerarChequePropioListener(ActionListener e) {
-		menuItemGenerarChequePropio.addActionListener(e);
-    }
-	
-	public void addUtilizarChequesTercerosListener(ActionListener e) {
-		menuItemUtilizarChequesTerceros.addActionListener(e);
-    }
-	
-	public void addCobrarServiciosListener(ActionListener e) {
-		menuItemCobrarServicios.addActionListener(e);
-    }
-	
-	public void addAnalizarCashflowListener(ActionListener e) {
-		menuItemAnalizarCashflow.addActionListener(e);
-    }
-	
-	//region Getters and Setters
-	
-	public AdministradorPagos getModelo() {
-		return modelo;
+
+	@Override
+	public void actualizar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
