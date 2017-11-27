@@ -20,12 +20,11 @@ public class JFormMenu extends JFormularioBase{
 	private JMenu menuPagos;
 	private JMenu menuCobranzas;
 	private JMenu menuGerencia;
-	private JMenu menuRealizarPago;
 	
 	private JMenuItem menuItemCobrarServicios;
 	private JMenuItem menuItemAnalizarCashflow;
-	private JMenuItem menuItemUtilizarChequesTerceros;
-	private JMenuItem menuItemGenerarChequePropio;
+	private JMenuItem menuItemPagar;
+	private JMenuItem menuItemDepositarCheques;
 	
 	public JFormMenu(AdministradorPagos modelo){
 		super(modelo);
@@ -37,8 +36,6 @@ public class JFormMenu extends JFormularioBase{
 	private void initializeForm(){
 		
 		this.setTitle("Administración de Cheques");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(new GridBagLayout());
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,19 +48,16 @@ public class JFormMenu extends JFormularioBase{
 		menuPagos = new JMenu("Pagos");
 		menuCobranzas = new JMenu("Cobranzas");
 		menuGerencia = new JMenu("Gerencia");
-		menuRealizarPago = new JMenu("Realizar Pago");
 		
 		menuItemCobrarServicios = new JMenuItem("Cobrar Servicios Realizados");
 		menuItemAnalizarCashflow = new JMenuItem("Analizar Cashflow");
-		menuItemUtilizarChequesTerceros = new JMenuItem("Utilizar Cheques Terceros");
-		menuItemGenerarChequePropio = new JMenuItem("Generar Cheque Propio");
+		menuItemPagar = new JMenuItem("Pagar");
+		menuItemDepositarCheques = new JMenuItem("Depositar Cheques");
 		
 		menuItemCobrarServicios.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFormCobrarServicios view = new JFormCobrarServicios(getModelo());
-				//CobrarServiciosController controller = new CobrarServiciosController(view); 
-				
+				JFormCobrarServicios view = new JFormCobrarServicios(getModelo());				
 				view.setVisible(true);
 			}
 		});
@@ -76,30 +70,26 @@ public class JFormMenu extends JFormularioBase{
 			}
 		});
 		
-		menuItemUtilizarChequesTerceros.addActionListener(new ActionListener() {
+		menuItemPagar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFormUtilizarChequesTerceros form = new JFormUtilizarChequesTerceros(getModelo()); 
+				JFormPagos form = new JFormPagos(getModelo()); 
 				form.setVisible(true);
 			}
 		});
 		
-		menuItemGenerarChequePropio.addActionListener(new ActionListener() {
+		menuItemDepositarCheques.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFormGenerarChequePropio view = new JFormGenerarChequePropio(getModelo());
-				//GenerarChequePropioController controller = new GenerarChequePropioController(view); 
-				
+				JFormDepositarCheques view = new JFormDepositarCheques(getModelo());			
 				view.setVisible(true);
 			}
 		});
 		
-		menuRealizarPago.add(menuItemUtilizarChequesTerceros);
-		menuRealizarPago.add(menuItemGenerarChequePropio);
-		
-		menuPagos.add(menuRealizarPago);
+		menuPagos.add(menuItemPagar);
 		menuCobranzas.add(menuItemCobrarServicios);
 		menuGerencia.add(menuItemAnalizarCashflow);
+		menuGerencia.add(menuItemDepositarCheques);
 		
 		menuBar.add(menuPagos);
 		menuBar.add(menuCobranzas);
@@ -109,9 +99,7 @@ public class JFormMenu extends JFormularioBase{
 	}
 
 	@Override
-	public void actualizar() {
-		// TODO Auto-generated method stub
-		
+	public void actualizar() { 
 	}
 
 }

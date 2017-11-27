@@ -14,7 +14,14 @@ public class ChequeTercero extends Cheque{
 	private EstadoCheque estado;
 
 	public ChequeTercero(int numero, double monto, Date fechaEmision){
+		
 		super(numero, monto, fechaEmision);
+		
+		if(sePuedePagarCon()){
+			estado = EstadoCheque.RECIBIDO;
+		}else{
+			estado = EstadoCheque.VENCIDO;
+		}
 	}
 	
 	public EstadoCheque getEstado() {

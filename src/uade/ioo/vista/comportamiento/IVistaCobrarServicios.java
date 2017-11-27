@@ -2,15 +2,17 @@ package uade.ioo.vista.comportamiento;
 
 import java.util.Date;
 
-import uade.ioo.modelo.ChequeTercero.EstadoCheque;
-
 public interface IVistaCobrarServicios {
 	
-	int getNumeroCheque();
+	public int getNumeroCheque();
 
-	double getMonto();
+	public double getMonto();
 	
-	EstadoCheque getEstadoCheque();
+	public Date getFechaEmision();
 	
-	Date getFechaEmision();
+	public void setNumeroCheque(String text);
+	
+	public void setMonto(String text);
+	
+	public void setFechaEmision(String text);
 }

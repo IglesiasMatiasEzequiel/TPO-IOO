@@ -3,6 +3,7 @@ package uade.ioo.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import uade.ioo.modelo.ChequeTercero.EstadoCheque;
 import uade.ioo.modelo.observer.Observado;
 
 public class AdministradorPagos extends Observado{
@@ -18,12 +19,8 @@ public class AdministradorPagos extends Observado{
 	public Chequera getChequera() {
 		return chequera;
 	}
-
-	public void obtenerChequesParaPagar(double monto) {
-
-	}
 	
-	public void registrarChequeTercero(ChequeTercero cheque){
+	public void registrarCheque(Cheque cheque){
 		this.cheques.add(cheque);
 		this.notificar();
 	}
@@ -31,22 +28,41 @@ public class AdministradorPagos extends Observado{
 	public double getMontoTotalCheques(){
 		double result = 0;
 		for(Cheque c : this.cheques){
-			result += c.getMontoDisponiblePago();
+			result += c.getMonto();
 		}
 		return result;
 	}
 
 	public Cheque generarChequeNuevo(double monto) {
-		chequera.setUltimoNumero(chequera.getUltimoNumero() + 1);
-		return new ChequePropio(chequera.getUltimoNumero(), monto);
-	}
-
-	public double getMontoDisponiblePagos() {
-		return 0;
+		return new ChequePropio(chequera.getNumeroCheque(), monto);
 	}
 
 	public List<Cheque> getCheques() {
 		return cheques;
+	}
+	
+	public List<ChequeTercero> getChequesTerceros() {
+		
+		List<ChequeTercero> chequesTerceros = new ArrayList<ChequeTercero>();
+		
+		for(Cheque c : cheques){
+			if(c.getClass() == ChequeTercero.class){
+				chequesTerceros.add((ChequeTercero)c);
+			}
+		}
+		return chequesTerceros;
+	}
+	
+	public List<ChequeTercero> getChequesTercerosProximosAVencer() {
+		
+		List<ChequeTercero> chequesTerceros = new ArrayList<ChequeTercero>();
+		
+		for(Cheque c : cheques){
+			if(c.getClass() == ChequeTercero.class && ((ChequeTercero)c).getEstado() == EstadoCheque.RECIBIDO && c.esProximoAVencer()){
+				chequesTerceros.add((ChequeTercero)c);
+			}
+		}
+		return chequesTerceros;
 	}
 
 	public void setCheques(List<Cheque> cheques) {

@@ -1,7 +1,6 @@
 package uade.ioo.modelo;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public abstract class Cheque {
 
@@ -23,11 +22,20 @@ public abstract class Cheque {
 		return fechaEmision;
 	}
 	
-	public boolean sePuedePagarCon(){
-		return TimeUnit.DAYS.convert(new Date().getTime() - fechaEmision.getTime(), TimeUnit.DAYS) <= 30;
+	private long getDiffInDays(Date start, Date end){
+		return (end.getTime() - start.getTime())/ (1000 * 60 * 60 * 24);
 	}
 	
-	public double getMontoDisponiblePago(){
+	public boolean sePuedePagarCon(){
+		return  getDiffInDays(fechaEmision, new Date()) <= 30;
+	}
+	
+	public boolean esProximoAVencer(){
+		long diff = getDiffInDays(fechaEmision, new Date());
+		return diff >= 20 && diff <= 30;
+	}
+	
+	public double getMonto(){
 		return monto;
 	}
 }

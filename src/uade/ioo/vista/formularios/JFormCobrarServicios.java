@@ -1,20 +1,18 @@
 package uade.ioo.vista.formularios;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import uade.ioo.modelo.AdministradorPagos;
-import uade.ioo.modelo.ChequeTercero.EstadoCheque;
 import uade.ioo.vista.comportamiento.IVistaCobrarServicios;
 import uade.ioo.vista.controlador.test.mocks.CobrarServiciosController;
 
@@ -24,10 +22,9 @@ public class JFormCobrarServicios extends JFormularioBase implements IVistaCobra
 	
 	private JTextField txtNumeroCheque;
 	private JTextField txtMonto;
-	private JComboBox<EstadoCheque> cbEstado;
+	private JTextField txtFechaEmision;
 	private JButton btnCobrarServicios;
-	private JButton btnCancelar;
-
+	
 	public JFormCobrarServicios(AdministradorPagos modelo){
 		
 		super(modelo);
@@ -39,38 +36,26 @@ public class JFormCobrarServicios extends JFormularioBase implements IVistaCobra
 	private void initializeForm(){
 		
 		this.setTitle("Cobrar Servicios");
-		this.setLocationRelativeTo(null);
+		this.setSize(300, 200);
 		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-		this.setSize(400, 400);
-	}
-	
-	private void setSize(Component component, int width, int height){
-		component.setMinimumSize(new Dimension(width, height));
-		component.setPreferredSize(new Dimension(width, height));
-		component.setMaximumSize(new Dimension(width, height));
 	}
 	
 	private void initializeComponents(){
 		
 		JLabel lblNumeroCheque = new JLabel("N° Cheque: ");
 		JLabel lblMonto = new JLabel("Monto: ");
-		JLabel lblEstado = new JLabel("Estado: ");
+		JLabel lblFechaEmision = new JLabel("F. de Emisión: ");
 		
 		JPanel panelNumeroCheque = new JPanel(new BorderLayout());
 		JPanel panelMonto = new JPanel(new BorderLayout());
-		JPanel panelEstado = new JPanel(new BorderLayout());
+		JPanel panelFechaEmision = new JPanel(new BorderLayout());
+		JPanel panelBoton = new JPanel(new BorderLayout());
 		
 		txtNumeroCheque = new JTextField();
 		txtMonto = new JTextField();
-		
-		cbEstado = new JComboBox<EstadoCheque>();
-		cbEstado.addItem(EstadoCheque.RECIBIDO);
-		cbEstado.addItem(EstadoCheque.ENTREGADO);
-		cbEstado.addItem(EstadoCheque.DEPOSITADO);
-		cbEstado.addItem(EstadoCheque.VENCIDO);
+		txtFechaEmision = new JTextField();
 		
 		btnCobrarServicios = new JButton("Cobrar");
-		btnCancelar = new JButton("Cancelar");
 		
 		panelNumeroCheque.add(lblNumeroCheque, BorderLayout.WEST);
 		panelNumeroCheque.add(txtNumeroCheque, BorderLayout.CENTER);
@@ -78,55 +63,79 @@ public class JFormCobrarServicios extends JFormularioBase implements IVistaCobra
 		panelMonto.add(lblMonto, BorderLayout.WEST);
 		panelMonto.add(txtMonto, BorderLayout.CENTER);
 
-		panelEstado.add(lblEstado, BorderLayout.WEST);
-		panelEstado.add(cbEstado, BorderLayout.CENTER);
+		panelFechaEmision.add(lblFechaEmision, BorderLayout.WEST);
+		panelFechaEmision.add(txtFechaEmision, BorderLayout.CENTER);
 		
-		setSize(lblNumeroCheque, 100, 20);
-		setSize(lblMonto, 100, 20);
-		setSize(lblEstado, 100, 20);
+		panelBoton.add(btnCobrarServicios, BorderLayout.CENTER);
 		
-		setSize(txtNumeroCheque, 10, 10);
-		setSize(txtMonto, 10, 10);
+		setComponentSize(lblNumeroCheque, 80, 0);
+		setComponentSize(lblMonto, 80, 0);
+		setComponentSize(lblFechaEmision, 80, 0);
+		
+		setComponentSize(txtNumeroCheque, 10, 0);
+		setComponentSize(txtMonto, 10, 0);
+		setComponentSize(txtFechaEmision, 10, 0);
+		setComponentSize(btnCobrarServicios, 10, 0);
+		
+		setPanelMargin(panelNumeroCheque, 5, 5, 0, 5);
+		setPanelMargin(panelMonto, 5, 5, 0, 5);
+		setPanelMargin(panelFechaEmision, 5, 5, 0, 5);
+		setPanelMargin(panelBoton, 5, 5, 5, 5);
 		
 		btnCobrarServicios.addActionListener(new CobrarServiciosController(getModelo(), this));
 		
 		this.getContentPane().add(panelNumeroCheque);
 		this.getContentPane().add(panelMonto);
-		this.getContentPane().add(panelEstado);
-		this.getContentPane().add(btnCobrarServicios);
-		this.getContentPane().add(btnCancelar);
+		this.getContentPane().add(panelFechaEmision);
+		this.getContentPane().add(panelBoton);
 	}
 	
 	@Override
 	public int getNumeroCheque(){
-		return Integer.parseInt(txtNumeroCheque.getText());
+		try{
+			return Integer.parseInt(txtNumeroCheque.getText());
+		}catch(NumberFormatException ex){
+			return 0;
+		}
 	}
 	
 	@Override
-	public double getMonto(){
-		return Double.parseDouble(txtMonto.getText());
+	public void setNumeroCheque(String text){
+		txtNumeroCheque.setText(text);
 	}
 	
+	@Override
+	public double getMonto() {
+		try{
+			return Double.parseDouble(txtMonto.getText());
+		}catch(NumberFormatException ex){
+			return 0;
+		}
+	}
+	
+	@Override
+	public void setMonto(String text){
+		txtMonto.setText(text);
+	}
+	
+	@Override
 	public Date getFechaEmision(){
-		return new Date();
-	}
-	
-	@Override
-	public EstadoCheque getEstadoCheque(){
-		return (EstadoCheque) cbEstado.getSelectedItem();
-	}
-	
-	public void addCobrarServicioListener(ActionListener e) {
-		btnCobrarServicios.addActionListener(e);
-    }
-	
-	public void addCancelarListener(ActionListener e) {
-		btnCancelar.addActionListener(e);
-    }
-
-	@Override
-	public void actualizar() {
-	 super.actualizar();
 		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		
+		try{
+			return df.parse(txtFechaEmision.getText());
+		}catch(ParseException ex){
+			return null;
+		}
+	}
+	
+	@Override
+	public void setFechaEmision(String text){
+		txtFechaEmision.setText(text);
+	}
+	
+	@Override
+	public void actualizar() {	
 	}
 }

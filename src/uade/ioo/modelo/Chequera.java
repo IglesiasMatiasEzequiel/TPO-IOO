@@ -2,18 +2,15 @@ package uade.ioo.modelo;
 
 public class Chequera {
 
-	private int ultimoNumero;
+	private int numeroCheque;
 
 	public Chequera(){
-		ultimoNumero = 0;
+		numeroCheque = 0;
 	}
 	
-	public int getUltimoNumero() {
-		return ultimoNumero;
+	public int getNumeroCheque() {
+		int num = numeroCheque;
+		numeroCheque++;
+		return num;
 	}
-
-	public void setUltimoNumero(int ultimoNumero) {
-		this.ultimoNumero = ultimoNumero;
-	}
-	
 }
