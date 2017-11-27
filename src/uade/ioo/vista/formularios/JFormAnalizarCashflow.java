@@ -100,26 +100,26 @@ public class JFormAnalizarCashflow extends JFormularioBase implements IVistaAnal
 		panelAVencer.add(valueAVencer, BorderLayout.CENTER);		
 		
 		setComponentSize(lblDisponibleTerceros, 200, 10);
-		setComponentSize(valueDisponibleTerceros, 150, 10);
+		setComponentSize(valueDisponibleTerceros, 100, 10);
 		
 		setComponentSize(lblPagado, 200, 10);
-		setComponentSize(valuePagado, 150, 10);
+		setComponentSize(valuePagado, 100, 10);
 		
 		setComponentSize(lblDepositado, 200, 10);
-		setComponentSize(valueDepositado, 150, 10);
+		setComponentSize(valueDepositado, 100, 10);
 		
 		setComponentSize(lblEmitido, 200, 10);
-		setComponentSize(valueEmitido, 150, 10);
+		setComponentSize(valueEmitido, 100, 10);
 		
 		setComponentSize(lblAVencer, 200, 10);
-		setComponentSize(valueAVencer, 150, 10);
+		setComponentSize(valueAVencer, 100, 10);
 		
-		setPanelMargin(panelPeriodo, 5, 20, 0, 20);
-		setPanelMargin(panelDisponibleTerceros, 5, 20, 0, 20);
-		setPanelMargin(panelPagado, 5, 20, 0, 20);
-		setPanelMargin(panelDepositado, 5, 20, 0, 20);
-		setPanelMargin(panelEmitido, 5, 20, 0, 20);
-		setPanelMargin(panelAVencer, 5, 20, 5, 20);
+		setPanelMargin(panelPeriodo, 5, 5, 0, 5);
+		setPanelMargin(panelDisponibleTerceros, 5, 5, 0, 5);
+		setPanelMargin(panelPagado, 5, 5, 0, 5);
+		setPanelMargin(panelDepositado, 5, 5, 0, 5);
+		setPanelMargin(panelEmitido, 5, 5, 0, 5);
+		setPanelMargin(panelAVencer, 5, 5, 5, 5);
 		
 		this.getContentPane().add(panelPeriodo);
 		this.getContentPane().add(panelDisponibleTerceros);
